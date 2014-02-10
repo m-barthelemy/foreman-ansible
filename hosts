@@ -27,8 +27,12 @@ s.verify = False
 
 def get_hosts(hostfilter):
 	payload = {'search': hostfilter + ' ', 'format': 'json', }
+	hosts = []
 	r = s.get(foreman_url, params=payload)
-	return r.json()
+        for theHost in r.json():
+            hosts.append(theHost['host']['name'])
+        return hosts
+        
 
 if len(sys.argv) == 2 and (sys.argv[1] == '--list'):
 	
